@@ -1,0 +1,104 @@
+<html>
+<head>
+<title> Welcome to Racing Car</title>
+
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+
+
+<center>
+<script type="text/javascript" src="script/processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+int WPB;
+int PBM;
+int BML;
+
+PImage WPB; 
+
+void setup()
+{  
+    size( 616, 400 );  
+    background(255,255,255);
+    frameRate( 30 );
+
+	//Welcome Page Background
+    WPB = loadImage("Images/Welcome Page.jpg");
+    
+    //Play the Background Music
+    PBM = 1; //Play the Background Music 
+    BML = 0; // Length of the Background Music
+	
+	//Font of the "START" Button
+	font = loadFont("Orator 15 Pitch.ttf");
+}  
+
+Void draw()
+{
+	background(255,255,255);
+	
+	
+	//Play and Repeat the Background Music
+		if( PBM == 1)
+		{
+			soundManager.play('s0');
+			PBM = 0;
+		}
+		
+		BML = BML +0.001;
+
+		if( BML > 4.820)
+		{
+			PBM = 1;
+			BML = 0;
+		}
+
+	//Welcome Page Background 
+		image(WPB,10,10);
+	
+	
+	//Press the "START" Button
+		fill(240,255,255);
+		stroke(112,128,144);
+		strokeWeight(3);
+		rect(475,317,85,25);
+		
+		fill(0,0,0);
+		textFont(font,30);
+		text("START",490,340);
+
+	
+		if(mouseX > 475 && mouseX < 560 && mouseY > 315 && mouseY < 342)
+		{
+			fill(47,79,79);
+			stroke(255,165,0);
+			strokeWeight(3);
+			rect(475,317,85,25);
+			
+			fill(255,255,255);
+			textFont(font,30);
+			text("START",490,340);
+		}
+		
+		if(mousePressed == true && mouseButton == LEFT)
+
+		{
+
+			if (mouseX > 475 && mouseX < 560 && mouseY > 315 && mouseY < 342)
+
+			{
+				link("Select a Car.html"); //Link to the Selecting Car Page
+
+			}
+		}
+}
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

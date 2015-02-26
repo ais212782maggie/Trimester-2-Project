@@ -1,0 +1,184 @@
+<html>
+<head>
+<title> Select Your Car </title>
+
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+
+
+<center>
+<script type="text/javascript" src="script/processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+PIamge C1;//Car 1
+PIamge C2;//Car 2
+PIamge C3;//Car 3
+    
+PIamge C1T;//Car 1 Semi-Translucent
+PIamge C2T;//Car 2 Semi-Translucent
+PIamge C3T;//Car 2 Semi-Translucent
+    
+PIamge C1B;//Car 1 Background
+PIamge C2B;//Car 2 Background
+PIamge C3B;//Car 3 Background
+
+int S1;//Stay on Car 1 Background
+int	S2;//Stay on Car 2 Background
+int S3;//Stay on Car 3 Background
+
+int PBM;//Play the Background Music
+int BML;//Length of the Background Music
+
+
+void setup()
+{  
+    size( 616, 400 );  
+    background(255,255,255);
+    frameRate( 30 );
+
+	//Images of Cars
+    C1 = loadImage("Images/Car 1.png");
+    C2 = loadImage("Images/Car 2.png");	
+    C3 = loadImage("Images/Car 3.png");	
+    
+    C1T = loadImage("Images/Car 1 Semi-Translucent.png");
+    C2T = loadImage("Images/Car 2 Semi-Translucent.png");
+    C3T = loadImage("Images/Car 3 Semi-Translucent.png");
+    
+    C1B = loadImage("Images/Car 1 Background.jpg");
+    C2B = loadImage("Images/Car 2 Background.jpg");
+    C3B = loadImage("Images/Car 3 Background.jpg");
+    
+	
+    //Stay on the Page
+    S1 = 1;
+    S2 = 0;
+    S3 = 0;
+    
+	
+    //Play the Background Music
+    PBM = 1;
+    BML = 0;
+}  
+
+Void draw()
+{
+	background(255,255,255);
+		
+	//Play and Repeat the Background Music
+		if( PBM == 1)
+		{
+			soundManager.play('s0');
+			PBM = 0;
+		}
+		
+		BML = BML +0.001;
+
+		if( BML > 4.820)
+		{
+			PBM = 1;
+			BML = 0;
+		}
+	
+	 
+	//Choose Car 1
+		image(C1T,20,30);
+		image(C2T,90,30);
+		image(C3T,160,30);
+		
+		if(mouseX > 20 && mouseX < 70 && mouseY > 30 && mouseY < 117)
+		{
+			S1 = 1;
+			S2 = 0;
+			S3 = 0;
+		}
+		
+		if(S1 == 1)
+		{
+			image(C1B,10,20);
+			image(C1,20,30);
+			image(C2T,90,30);
+			image(C3T,160,30);
+		}
+		
+		if(mousePressed == true && mouseButton == LEFT)
+
+		{
+
+			if(mouseX > 20 && mouseX < 70 && mouseY > 30 && mouseY < 117)
+
+			{
+				link("Gaming Page Car 1.html");//Link to Game
+
+			}
+		}
+		
+	
+	//Choose Car 2	
+		if(mouseX > 90 && mouseX < 140 && mouseY > 30 && mouseY < 117)
+		{
+			S2 = 1;
+			S1 = 0;
+			S3 = 0;
+		}
+		
+		if(S2 == 1)
+		{
+			image(C2B,10,20);
+			image(C2,90,30);
+			image(C1T,20,30);
+			image(C3T,160,30);		
+		}
+		
+		if(mousePressed == true && mouseButton == LEFT)
+
+		{
+
+			if(mouseX > 90 && mouseX < 140 && mouseY > 30 && mouseY < 117)
+
+			{
+				link("Gaming Page Car 2.html");//Link to Game
+
+			}
+		}
+	
+	
+	//Choose Car 3
+		if(mouseX > 160 && mouseX < 210 && mouseY > 30 && mouseY < 117)
+		
+		{ 
+			S3 = 1;
+			S1 = 0;
+			S2 = 0;
+		}
+			
+		if(S3 == 1)
+		{
+			image(C3B,10,20);
+			image(C3,160,30);
+			image(C1T,20,30);
+			image(C2T,90,30);
+		}
+			
+		if(mousePressed == true && mouseButton == LEFT)
+
+		{
+
+			if(mouseX > 160 && mouseX < 210 && mouseY > 30 && mouseY < 117)
+
+			{
+				link("Gaming Page Car 3.html");//Link to Game
+
+			}
+		}    
+}
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

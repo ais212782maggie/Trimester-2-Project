@@ -1,0 +1,795 @@
+<html>
+<head>
+<title> Game</title>
+
+
+<script type="text/javascript" src="script/soundmanager2.js"></script>
+<script type="text/javascript" src="script/loadsoundchrome.js"></script>
+
+
+<center>
+<script type="text/javascript" src="script/processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+PIamge R1;//Road 1
+PIamge R2;//Road 2
+
+PIamge GB1;//City Background 1
+PIamge GB2;//City Background 2
+
+PImage MC;//My Car
+
+PImage RCL1C1;//Racing Car Level 1 Car 1
+PImage RCL1C2;//Racing Car Level 1 Car 2
+PImage RCL2C1;//Racing Car Level 2 Car 1
+PImage RCL2C2;//Racing Car Level 2 Car 2
+PImage RCL3C1;//Racing Car Level 3 Car 1
+PImage RCL3C2;//Racing Car Level 3 Car 2
+
+PImage flame;//Fire in front of my Car
+
+int CB1m;//City Background 1 Moves
+int CB1x;//x-coordinate of City Background 1
+int CB1y;//y-coordinate of City Background 1
+
+int CB2m;//City Background 2 Moves
+int CB2x;//x-coordinate of City Background 2
+int CB2y;//y-coordinate of City Background 2
+
+int R1m;//Road 1 Moves
+int R1x;//x-coordinate of Road 1
+int R1y;//y-coordinate of Road 1
+
+int R2m;//Road 2 Moves
+int R2x;//x-coordinate of Road 2
+int R2y;//y-coordinate of Road 2
+
+int BMs;//Background Moving Speed
+
+int	MCx;//x-coordinate of My Car
+int MCy;//y-coordinate of My Car
+int MCs;//Speed of Moving My Car
+int	MCC;//My Car Control
+
+int RCL1C1x;//x-coordinate of Racing Car Level 1 Car 1
+int RCL1C2x;//x-coordinate of Racing Car Level 1 Car 2
+int RCL2C1x;//x-coordinate of Racing Car Level 2 Car 1
+int RCL2C2x;//x-coordinate of Racing Car Level 2 Car 2
+int RCL3C1x;//x-coordinate of Racing Car Level 3 Car 1
+int RCL3C2x;//x-coordinate of Racing Car Level 3 Car 2
+
+int RCL1C1y;//y-coordinate of Racing Car Level 1 Car 1
+int RCL1C2y;//y-coordinate of Racing Car Level 1 Car 2
+int RCL2C1y;//y-coordinate of Racing Car Level 2 Car 1
+int RCL2C2y;//y-coordinate of Racing Car Level 2 Car 2
+int RCL3C1y;//y-coordinate of Racing Car Level 3 Car 1
+int RCL3C2y;//y-coordinate of Racing Car Level 3 Car 2
+
+int RCL1s;//Speed of Racing Cars in Level 1
+int RCL2s;//Speed of Racing Cars in Level 2
+int RCL3s;//Speed of Racing Cars in Level 3
+
+int RCx;//Conditions of Racing Cars x-coordinates
+
+int RC;//Level of the Game
+
+int DL1C1x;//Distance between Level 1 Racing Car 1 and My Car in x-axis
+int DL1C2x;//Distance between Level 1 Racing Car 2 and My Car in x-axis
+int DL2C1x;//Distance between Level 2 Racing Car 1 and My Car in x-axis
+int DL2C2x;//Distance between Level 2 Racing Car 2 and My Car in x-axis
+int DL3C1x;//Distance between Level 3 Racing Car 1 and My Car in x-axis
+int DL3C2x;//Distance between Level 3 Racing Car 2 and My Car in x-axis
+
+int DL1C1y;//Distance between Level 1 Racing Car 1 and My Car in y-axis
+int DL1C2y;//Distance between Level 1 Racing Car 2 and My Car in y-axis
+int DL2C1y;//Distance between Level 2 Racing Car 1 and My Car in y-axis
+int DL2C2y;//Distance between Level 2 Racing Car 2 and My Car in y-axis
+int DL3C1y;//Distance between Level 3 Racing Car 1 and My Car in y-axis
+int DL3C2y;//Distance between Level 3 Racing Car 2 and My Car in y-axis
+
+int gameStop;//Game Stops
+
+int NRC;//Number of Racing Cars Bypass
+
+int score;//Score the player gets
+
+int	CCS; //Crashing Car Sound
+int	LCCS; //Length of the crashing sound
+
+int PBM;//Play the Background Music
+int BML;//Length of the Background Music
+
+
+
+
+void setup()
+{  
+    size( 616, 400 );  
+    background(255,255,255);
+    frameRate( 30 );
+//Background
+
+	//Road
+  	R1 = loadImage("Images/Road.png");
+  	R2 = loadImage("Images/Road 2.png");
+	
+	//Road Moving
+  	R1m = 0;
+  	R2m = 0;
+  	
+  	R1y = -103;
+  	R2y = -613;
+ 
+  	
+  	//City Background
+  	CB1 = loadImage("Images/Gaming Background 1.jpg");
+  	CB2 = loadImage("Images/Gaming Background 2.jpg");
+  	
+  	//City Background Moving
+  	CB1m = 0;
+  	CB1x = 10;
+  	CB1y = -530;
+  	
+  	CB2m = 0;
+  	CB2x = 10;
+  	CB2y = -1470;
+  	
+	
+  	//Background Moving Speed
+  	BMs = 2;
+
+  	
+	
+	
+ //My Car
+	//Image of My Car
+  	MC = loadImage("Images/Car 3.png");
+	//Coordinates,speed and control of My Car
+  	MCx = 420;
+  	MCy = 250;
+  	MCs = 5;
+  	MCC = 0;
+  	
+	
+	
+	
+//Racing Cars 
+	//Image of Racing Cars
+    RCL1C1 = loadImage("Images/Racing Car Level 1.png");
+    RCL1C2 = loadImage("Images/Racing Car Level 1 copy.png");
+    
+    RCL2C1 = loadImage("Images/Racing Car Level 2.png");
+    RCL2C2 = loadImage("Images/Racing Car Level 2 copy.png");
+    
+	RCL3C1 = loadImage("Images/Racing Car Level 3.png");
+	RCL3C2 = loadImage("Images/Racing Car Level 3 copy.png");
+	
+	
+	//Coordinates of Racing Cars
+	RCL1C1x = 0;
+	RCL1C2x = 0;
+	RCL2C1x = 0;
+	RCL2C2x = 0;
+	RCL3C1x = 0;
+	RCL3C2x = 0;
+	
+	RCL1C1y = random(-200,-80);
+	RCL1C2y = random(-200,-80);
+	RCL2C1y = random(-250,-240);
+	RCL2C2y = random(-250,-240)
+	RCL3C1y = random(-210,-205);
+	RCL3C2y = random(-210,-205);
+	
+	RCL1s = 4.5;
+	RCL2s = 6;
+	RCL3s = 10;
+	
+	//Conditions of x-Coordinates of Racing Cars
+	RCx = Math.floor(Math.random() * (3 - 1 + 1)) + 1; //Order of the Car
+	
+	//Level of the Game
+	RC = 1; 
+	
+	//Distance between My Car and the Racing Car
+	DL1C1x = 0;
+	DL1C1y = 0;
+	DL1C2x = 0;
+	DL1C2y = 0;
+	
+	DL2C1x = 0;
+	DL2C1y = 0;
+	DL2C2x = 0;
+	DL2C2y = 0;
+	
+	DL3C1x = 0;
+	DL3C1y = 0;
+	DL3C2x = 0;
+	DL3C2y = 0;
+	
+	//Game Stops
+	gameStop = 0;
+
+	//Number of Racing Car it bypasses
+	NRC = 0;
+	  	
+  	//Score
+  	score = 0;
+  	
+  	//Music
+  	CCS = 0; 
+  	LCCS = 0; 
+  	
+  	//Play the Background Music
+    PBM = 1;
+    BML = 0; 
+    
+	//font of score
+    font = loadFont("Orator 15 Pitch.ttf");
+  	
+	//flame
+	flame = loadImage("Images/flame.png");
+}  
+
+Void draw()
+{
+	background(255,255,255);
+	
+	
+	if(gameStop == 0)
+	{
+		//Background Repeating
+		
+		//Play and Repeat the Background Music
+		if( PBM == 1)
+		{
+			soundManager.play('s0');
+			PBM = 0;
+		}
+		
+		BML = BML +0.001;
+
+		if( BML > 4.820)
+		{
+			PBM = 1;
+			BML = 0;
+		}
+	
+		//City Background Repeating
+		image(CB1,CB1x,CB1y);
+		image(CB2,CB2x,CB2y);
+		if( CB1m == 0 )
+		{
+			CB1y = CB1y + BMs;
+		}
+		
+		if( CB1y > 400 )
+		{
+			CB1m = 1; 
+		}
+			
+		if( CB1m == 1 )
+		{
+			CB1y = -1470;
+			CB1m = 0;
+		}
+		
+		if( CB2m == 0 )
+		{
+			CB2y = CB2y + BMs;
+		}
+		
+		if( CB2y > 400 )
+		{
+			CB2m = 1;
+		}
+		
+		if( CB2m == 1 )
+		{
+			CB2y = -1470;
+			CB2m = 0;
+		}		
+		
+		//Road Background Repeating
+		image(R1,298,R1y);
+		image(R2,298,R2y);
+		
+		if( R1m == 0 )
+		{
+			R1y = R1y + BMs;
+		}
+		
+		if( R1y > 400 )
+		{
+			R1m = 1; 
+		}
+		
+		if( R1m == 1 )
+		{
+			R1y = -613;
+			R1m = 0;
+		}
+		
+		if( R2m == 0 )
+		{
+			R2y = R2y + BMs;
+		}
+		
+		if( R2y > 400 )
+		{
+			R2m = 1;
+		}
+		
+		if( R2m == 1 )
+		{
+			R2y = -613;
+			R2m = 0;
+		}
+		
+	//Game 
+   
+		image(MC,MCx,MCy);
+		
+		//My Car Control
+		if( MCy > 7 && MCy < 309 && MCx > 305 && MCx < 537)
+		{
+			if( keyPressed == true)
+			{	
+				if (keyCode == UP)
+				{
+					MCy = MCy - MCs;
+				}
+			
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+					
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+			
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+		}
+		
+		
+		if( MCy <= 7 && MCx > 305 && MCx < 537)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+				
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+				
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+
+		}
+		
+		if( MCy >= 309 && MCx > 305 && MCx < 537)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == UP)
+				{
+					MCy = MCy - MCs;
+				}
+				
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+			
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+		}
+		
+		if( MCx <= 305 && MCy > 7 && MCy < 309)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == UP)
+				{	
+					MCy = MCy - MCs;
+				}
+				
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+				
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+			}
+		}
+		
+		if( MCx >= 537 && MCy > 7 && MCy < 309)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == UP)
+				{
+					MCy = MCy - MCs;
+				}
+			
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+					
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+		}
+		
+		if( MCy <= 7 && MCx <= 305)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+					
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+			}
+		}
+		
+		if( MCy >= 309 && MCx <= 305)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == UP)
+				{
+					MCy = MCy - MCs;
+				}
+			
+				if (keyCode == RIGHT)
+				{
+					MCx = MCx + MCs;
+				}
+			}
+		}
+			
+		if( MCy <= 7 && MCx >= 537)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == DOWN)
+				{
+					MCy = MCy + MCs;
+				}
+					
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+		}
+		
+		if( MCy >= 309 && MCx >= 537)
+		{
+			if( keyPressed == true)
+			{
+				if (keyCode == UP)
+				{
+					MCy = MCy - MCs;
+				}
+					
+				if (keyCode == LEFT)
+				{
+					MCx = MCx - MCs;
+				}
+			}
+		}
+		
+	//Racing Cars
+	
+		//Conditions of x-Coordinates of racing cars
+		if(RCx == 1)
+		{
+			RCL1C1x = 320;
+			RCL1C2x = 420;
+		}
+	
+		if(RCx == 2)
+		{
+			RCL1C1x = 320;
+			RCL1C2x = 520;
+		}
+	
+		if(RCx == 3)
+		{
+			RCL1C1x = 420;
+			RCL1C2x = 520;
+		}
+	
+		if(RCx == 4)
+		{
+			RCL2C1x = 320;
+			RCL2C2x = 420;
+		}
+
+		if(RCx == 5)
+		{
+			RCL2C1x = 320;
+			RCL2C2x = 520;
+		}
+
+	
+		if(RCx == 6)
+		{
+			RCL2C1x = 420;
+			RCL2C2x = 520;
+		}
+	
+		if(RCx == 7)
+		{
+			RCL3C1x = 320;
+			RCL3C2x = 420;
+		}
+
+		if(RCx == 8)
+		{
+			RCL3C1x = 320;
+			RCL3C2x = 520;
+		}
+
+		if(RCx == 9)
+		{
+			RCL3C1x = 420;
+			RCL3C2x = 520;
+		}
+	
+	
+
+		//Distance between the Racing Cars and My Cars in x and y-coordinates
+		DL1C1x= (int)sqrt(sq(MCx-RCL1C1x)+sq(0));
+		DL1C1y= (int)sqrt(sq(0)+sq(MCy-RCL1C1y));
+	
+		DL1C2x= (int)sqrt(sq(MCx-RCL1C2x)+sq(0));
+		DL1C2y= (int)sqrt(sq(0)+sq(MCy-RCL1C2y));
+	
+		DL2C1x= (int)sqrt(sq(MCx-RCL2C1x)+sq(0));
+		DL2C1y= (int)sqrt(sq(0)+sq(MCy-RCL2C1y));
+	
+		DL2C2x= (int)sqrt(sq(MCx-RCL2C2x)+sq(0));
+		DL2C2y= (int)sqrt(sq(0)+sq(MCy-RCL2C2y));
+	
+		DL3C1x= (int)sqrt(sq(MCx-RCL3C1x)+sq(0));
+		DL3C1y= (int)sqrt(sq(0)+sq(MCy-RCL3C1y));
+	
+		DL3C2x= (int)sqrt(sq(MCx-RCL3C2x)+sq(0));
+		DL3C2y= (int)sqrt(sq(0)+sq(MCy-RCL3C2y));
+	
+		
+		//Racing Cars in the First Level
+		if( RC == 1)
+		{
+			image(RCL1C1,RCL1C1x,RCL1C1y);
+			image(RCL1C2,RCL1C2x,RCL1C2y);
+	
+			RCL1C1y = RCL1C1y + RCL1s;
+			RCL1C2y = RCL1C2y + RCL1s;
+		
+			if(RCL1C1y < -80 && RCL1C2y < -80)
+			{
+				RCx = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+			}
+		
+			if(RCL1C1y >= 400)
+			{
+				RCL1C1y = random(-300,-200);
+				NRC = NRC + 1;
+			}
+		
+			if(RCL1C2y >= 400)
+			{
+				RCL1C2y = random(-300,-200);
+				NRC = NRC + 1;
+			}
+	
+			if(	NRC > 5)
+			{
+				RC = 2;
+				RCx = Math.floor(Math.random() * (6 - 4 + 1)) + 4;
+			}
+		
+	
+			if( DL1C1x < 40 && DL1C1y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+ 
+			if( DL1C2x < 40 && DL1C2y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+		}
+	
+		//Racing Cars in the Second Level
+		if( RC == 2)
+		{
+			image(RCL2C1,RCL2C1x,RCL2C1y);
+			image(RCL2C2,RCL2C2x,RCL2C2y);
+	
+			RCL2C1y = RCL2C1y + RCL2s;
+			RCL2C2y = RCL2C2y + RCL2s;
+		
+			if(RCL2C1y < -80 && RCL2C2y < -80)
+			{
+				RCx = Math.floor(Math.random() * (6 - 4 + 1)) + 4;
+			}
+		
+			if(RCL2C1y > 400)
+			{
+				RCL2C1y = random(-250,-240);
+				NRC = NRC + 1.5;
+			}
+		
+			if(RCL2C2y > 400)
+			{
+				RCL2C2y = random(-250,-240);
+				NRC = NRC + 1.5;
+			}
+	
+			if(	NRC > 17 )
+			{
+				RC = 3;
+				RCx = Math.floor(Math.random() * (9 - 7 + 1)) + 7;
+			}
+		
+			if( DL2C1x < 40 && DL2C1y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+ 
+			if( DL2C2x < 40 && DL2C2y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+		}
+		
+		//Racing Cars in the Third Level
+		if( RC == 3)
+		{
+			image(RCL3C1,RCL3C1x,RCL3C1y);
+			image(RCL3C2,RCL3C2x,RCL3C2y);
+	
+			RCL3C1y = RCL3C1y + RCL3s;
+			RCL3C2y = RCL3C2y + RCL3s;
+		
+			if(RCL3C1y < -80 && RCL3C2y < -80)
+			{
+				RCx = Math.floor(Math.random() * (9 - 7 + 1)) + 7;
+			}
+		
+			if(RCL3C1y > 400)
+			{
+				RCL3C1y = random(-210,-205);
+				NRC = NRC + 2;
+			}
+		
+			if(RCL3C2y > 400)
+			{
+				RCL3C2y = random(-210,-205);
+				NRC = NRC + 2;
+			}
+		
+			if( DL3C1x < 40 && DL3C1y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+ 
+			if( DL3C2x < 40 && DL3C2y < 75  )
+			{
+				gameStop = 1;
+				CCS = 1;
+			}  	
+	
+		}
+	}
+	
+	 
+	//Game Stops
+    if(gameStop == 1)
+    {
+		//Stop all the Moving things
+    	PBM = 2;
+    	image(CB1,CB1x,CB1y);
+		image(CB2,CB2x,CB2y);
+		
+		image(R1,298,R1y);
+    	image(R2,298,R2y);
+    	
+    	BMs = 0;
+    	
+    	image(MC,MCx,MCy);
+		image(flame,MCx,MCy);//fire in front of my car
+    	MCs = 0;
+    	
+    	RCL1s = 0;
+    	RCL2s = 0;
+    	RCL3s = 0;
+    	
+    	if( RC == 1)
+		{
+			image(RCL1C1,RCL1C1x,RCL1C1y);
+			image(RCL1C2,RCL1C2x,RCL1C2y);
+		}
+    	
+    	if( RC == 2)
+		{
+			image(RCL2C1,RCL2C1x,RCL2C1y);
+			image(RCL2C2,RCL2C2x,RCL2C2y);
+		}
+		
+		if( RC == 3)
+		{
+			image(RCL3C1,RCL3C1x,RCL3C1y);
+			image(RCL3C2,RCL3C2x,RCL3C2y);
+		}
+		
+		LCCS = LCCS + 0.01;
+	}
+	
+	if(CCS == 1)
+	{
+    	soundManager.play('s1');
+    	CCS = 0;
+    }
+    
+	if(LCCS > 1)
+	{
+		link("Crash 3.html");//link to the ending page
+	}
+		
+	 	
+	//Score
+   	score = NRC * 10
+    fill(46,139,87);
+    textFont(font,30);
+	text("SCORE",30,40);
+	
+	fill(46,139,87);
+	textFont(font,30);
+	text(score,45,90);
+}
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>

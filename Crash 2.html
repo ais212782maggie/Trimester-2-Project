@@ -1,0 +1,78 @@
+<html>
+<head>
+<title> Game Over </title>
+<script src="../processing-1.4.1.js"></script>
+<script type="text/processing" data-processing-target="mycanvas">
+
+
+PImage Crash1;
+
+
+void setup()
+{  
+	size( 616, 400 );  
+    background(255,255,255);
+    frameRate( 30 );
+    
+	Crash1 = loadImage("Images/Crash2.png");
+	
+	font = loadFont("Orator 15 Pitch.ttf");
+}  
+
+Void draw()
+{
+	
+  	background(255,255,255);
+	image(Crash1,10,10);
+	
+	
+	fill(240,255,255);
+	stroke(112,128,144);
+	strokeWeight(3);
+	rect(30,320,200,35);
+		
+	fill(0,0,0);
+	textFont(font,40);
+	text("Play Again",50,350);
+
+	
+	if(mouseX > 30 && mouseX < 230 && mouseY > 320 && mouseY < 355)
+	{
+		fill(47,79,79);
+		stroke(255,165,0);
+		strokeWeight(3);
+		rect(30,320,200,35);
+			
+		fill(0,0,0);
+		textFont(font,40);
+		text("Play Again",50,350);
+	}
+		
+	if(mousePressed == true && mouseButton == LEFT)
+
+	{
+
+		if (mouseX > 30 && mouseX < 230 && mouseY > 320 && mouseY < 355)
+
+		{
+			link("Welcome.html"); 
+
+		}
+	}
+}     	
+
+
+
+</script>
+<canvas id="mycanvas"></canvas>
+</head>
+
+<body>
+
+</body>
+</html>
+
+
+
+
+
